@@ -8,7 +8,8 @@
 <body>
 	<div class="container py-4">
 		<h1 class="mb-4">Nueva impartición de <span th:text="${curso.titulo}"></span></h1>
-		<form th:action="@{/cursos/{id}/imparticiones(id=${curso.id})}" th:object="${imparticion}" method="post">
+		<form th:action="@{/cursos/{id}/imparticiones(id=${curso.id})}" th:object="${imparticion}" method="post"
+			onsubmit="this.querySelector('button[type=submit]').disabled = true;">
 			<div class="mb-3">
 				<label class="form-label">Fecha de inicio</label>
 				<input type="date" class="form-control" th:field="*{fechaInicio}"

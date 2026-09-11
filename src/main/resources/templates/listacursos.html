@@ -9,6 +9,8 @@
 	<div class="container py-4">
 		<h1 class="mb-4">Cursos</h1>
 
+		<div class="alert alert-warning" th:if="${error}" th:text="${error}"></div>
+
 		<form class="row g-2 mb-4" method="get" th:action="@{/cursos}">
 			<div class="col-auto">
 				<input type="text" class="form-control" name="titulo" placeholder="Buscar por título" th:value="${titulo}">

@@ -8,15 +8,18 @@ import org.springframework.transaction.annotation.Transactional;
 import es.oesia.web1.negocio.Curso;
 import es.oesia.web1.negocio.Imparticion;
 import es.oesia.web1.repository.CursoRepository;
+import es.oesia.web1.repository.ImparticionRepository;
 
 @Service
 @Transactional
 public class CursosServicio {
 
 	private final CursoRepository cursoRepository;
+	private final ImparticionRepository imparticionRepository;
 
-	public CursosServicio(CursoRepository cursoRepository) {
+	public CursosServicio(CursoRepository cursoRepository, ImparticionRepository imparticionRepository) {
 		this.cursoRepository = cursoRepository;
+		this.imparticionRepository = imparticionRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -41,9 +44,14 @@ public class CursosServicio {
 	}
 
 	public void añadirImparticion(Long cursoId, Imparticion imparticion) {
+		System.out.println("id curso"+cursoId);
+		System.out.println("id imparticion"+imparticion.getId());
+		System.out.println(imparticion.getFechaFin());
+		System.out.println(imparticion.getFechaInicio());
 		Curso curso = cursoRepository.findById(cursoId).orElseThrow();
 		curso.addImparticion(imparticion);
 		cursoRepository.save(curso);
+		imparticionRepository.save(imparticion);
 	}
 
 }

@@ -5,7 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.oesia.web1.negocio.Curso;
 import es.oesia.web1.repository.CursoRepository;
@@ -21,8 +23,13 @@ public class CursoController {
 	}
 
 	@GetMapping("/cursos")
-	public String listarCursos(Model model) {
-		model.addAttribute("cursos", cursoRepository.findAll());
+	public String listarCursos(@RequestParam(name = "titulo", required = false) String titulo, Model model) {
+		if (titulo != null && !titulo.isBlank()) {
+			model.addAttribute("cursos", cursoRepository.findByTituloContainingIgnoreCase(titulo));
+		} else {
+			model.addAttribute("cursos", cursoRepository.findAll());
+		}
+		model.addAttribute("titulo", titulo);
 		return "listacursos";
 	}
 
@@ -37,7 +44,13 @@ public class CursoController {
 		if (bindingResult.hasErrors()) {
 			return "nuevocurso";
 		}
-		cursoRepository.insertar(curso);
+		cursoRepository.save(curso);
+		return "redirect:/cursos";
+	}
+
+	@PostMapping("/cursos/{id}/eliminar")
+	public String eliminarCurso(@PathVariable Long id) {
+		cursoRepository.deleteById(id);
 		return "redirect:/cursos";
 	}
 

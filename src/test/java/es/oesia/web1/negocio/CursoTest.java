@@ -2,8 +2,11 @@ package es.oesia.web1.negocio;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import org.junit.jupiter.api.AfterAll;
@@ -70,6 +73,29 @@ class CursoTest {
 
 		assertFalse(violaciones.isEmpty());
 		assertEquals("duracion", violaciones.iterator().next().getPropertyPath().toString());
+	}
+
+	@Test
+	void addImparticionLaAnadeALaListaYAsignaElCursoComoPropietario() {
+		Curso curso = new Curso("Java desde cero", 40, "Fundamentos del lenguaje Java");
+		Imparticion imparticion = new Imparticion(LocalDate.of(2026, 1, 12), LocalDate.of(2026, 2, 12), null);
+
+		curso.addImparticion(imparticion);
+
+		assertTrue(curso.getImparticiones().contains(imparticion));
+		assertSame(curso, imparticion.getCurso());
+	}
+
+	@Test
+	void removeImparticionLaQuitaDeLaListaYDesvinculaElCurso() {
+		Curso curso = new Curso("Java desde cero", 40, "Fundamentos del lenguaje Java");
+		Imparticion imparticion = new Imparticion(LocalDate.of(2026, 1, 12), LocalDate.of(2026, 2, 12), null);
+		curso.addImparticion(imparticion);
+
+		curso.removeImparticion(imparticion);
+
+		assertFalse(curso.getImparticiones().contains(imparticion));
+		assertNull(imparticion.getCurso());
 	}
 
 }

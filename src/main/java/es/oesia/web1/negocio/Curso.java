@@ -1,8 +1,22 @@
 package es.oesia.web1.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 
+@Entity
 public class Curso {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String titulo;
 
@@ -11,6 +25,9 @@ public class Curso {
 
 	private String descripcion;
 
+	@OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Imparticion> imparticiones = new ArrayList<>();
+
 	public Curso() {
 	}
 
@@ -18,6 +35,14 @@ public class Curso {
 		this.titulo = titulo;
 		this.duracion = duracion;
 		this.descripcion = descripcion;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {
@@ -42,6 +67,24 @@ public class Curso {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public List<Imparticion> getImparticiones() {
+		return imparticiones;
+	}
+
+	public void setImparticiones(List<Imparticion> imparticiones) {
+		this.imparticiones = imparticiones;
+	}
+
+	public void addImparticion(Imparticion imparticion) {
+		imparticiones.add(imparticion);
+		imparticion.setCurso(this);
+	}
+
+	public void removeImparticion(Imparticion imparticion) {
+		imparticiones.remove(imparticion);
+		imparticion.setCurso(null);
 	}
 
 }

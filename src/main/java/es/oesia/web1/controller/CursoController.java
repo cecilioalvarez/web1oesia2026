@@ -10,25 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.oesia.web1.negocio.Curso;
-import es.oesia.web1.repository.CursoRepository;
+import es.oesia.web1.servicio.CursosServicio;
 import jakarta.validation.Valid;
 
 @Controller
 public class CursoController {
 
-	private final CursoRepository cursoRepository;
+	private final CursosServicio cursosServicio;
 
-	public CursoController(CursoRepository cursoRepository) {
-		this.cursoRepository = cursoRepository;
+	public CursoController(CursosServicio cursosServicio) {
+		this.cursosServicio = cursosServicio;
 	}
 
 	@GetMapping("/cursos")
 	public String listarCursos(@RequestParam(name = "titulo", required = false) String titulo, Model model) {
-		if (titulo != null && !titulo.isBlank()) {
-			model.addAttribute("cursos", cursoRepository.findByTituloContainingIgnoreCase(titulo));
-		} else {
-			model.addAttribute("cursos", cursoRepository.findAll());
-		}
+		model.addAttribute("cursos", cursosServicio.listarCursos(titulo));
 		model.addAttribute("titulo", titulo);
 		return "listacursos";
 	}
@@ -44,13 +40,13 @@ public class CursoController {
 		if (bindingResult.hasErrors()) {
 			return "nuevocurso";
 		}
-		cursoRepository.save(curso);
+		cursosServicio.guardarCurso(curso);
 		return "redirect:/cursos";
 	}
 
 	@PostMapping("/cursos/{id}/eliminar")
 	public String eliminarCurso(@PathVariable Long id) {
-		cursoRepository.deleteById(id);
+		cursosServicio.eliminarCurso(id);
 		return "redirect:/cursos";
 	}
 

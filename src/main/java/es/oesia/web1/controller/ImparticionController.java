@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import es.oesia.web1.negocio.Curso;
 import es.oesia.web1.negocio.Imparticion;
-import es.oesia.web1.repository.CursoRepository;
+import es.oesia.web1.servicio.CursosServicio;
 import jakarta.validation.Valid;
 
 @Controller
 public class ImparticionController {
 
-	private final CursoRepository cursoRepository;
+	private final CursosServicio cursosServicio;
 
-	public ImparticionController(CursoRepository cursoRepository) {
-		this.cursoRepository = cursoRepository;
+	public ImparticionController(CursosServicio cursosServicio) {
+		this.cursosServicio = cursosServicio;
 	}
 
 	@GetMapping("/cursos/{id}/imparticiones/nueva")
 	public String formularioNuevaImparticion(@PathVariable Long id, Model model) {
-		Curso curso = cursoRepository.findById(id).orElseThrow();
+		Curso curso = cursosServicio.obtenerCurso(id);
 		model.addAttribute("curso", curso);
 		model.addAttribute("imparticion", new Imparticion());
 		return "nuevaimparticion";
@@ -34,13 +34,11 @@ public class ImparticionController {
 	public String insertarImparticion(@PathVariable Long id,
 			@Valid @ModelAttribute("imparticion") Imparticion imparticion, BindingResult bindingResult,
 			Model model) {
-		Curso curso = cursoRepository.findById(id).orElseThrow();
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("curso", curso);
+			model.addAttribute("curso", cursosServicio.obtenerCurso(id));
 			return "nuevaimparticion";
 		}
-		curso.addImparticion(imparticion);
-		cursoRepository.save(curso);
+		cursosServicio.añadirImparticion(id, imparticion);
 		return "redirect:/cursos";
 	}
 

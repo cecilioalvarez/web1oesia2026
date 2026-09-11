@@ -26,6 +26,7 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
+					<th>ID</th>
 					<th>Título</th>
 					<th>Duración (horas)</th>
 					<th>Descripción</th>
@@ -34,6 +35,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="curso : ${cursos}">
+					<td th:text="${curso.id}"></td>
 					<td th:text="${curso.titulo}"></td>
 					<td th:text="${curso.duracion}"></td>
 					<td th:text="${curso.descripcion}"></td>

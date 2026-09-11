@@ -1,9 +1,14 @@
 package es.oesia.web1.negocio;
 
+import jakarta.validation.constraints.Max;
+
 public class Curso {
 
 	private String titulo;
+
+	@Max(value = 200, message = "La duración no puede superar las 200 horas")
 	private int duracion;
+
 	private String descripcion;
 
 	public Curso() {

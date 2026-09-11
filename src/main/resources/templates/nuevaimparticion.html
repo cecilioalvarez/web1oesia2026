@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="container py-4">
-		<h1 class="mb-4">Nueva impartición de <span th:text="${curso.titulo}"></span></h1>
+		<h1 class="mb-4">Nueva impartición de <span th:text="${curso.titulo}"></span> (ID: <span th:text="${curso.id}"></span>)</h1>
 		<form th:action="@{/cursos/{id}/imparticiones(id=${curso.id})}" th:object="${imparticion}" method="post"
 			onsubmit="this.querySelector('button[type=submit]').disabled = true;">
 			<div class="mb-3">

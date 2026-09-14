@@ -5,9 +5,6 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 
@@ -17,11 +14,7 @@ import jakarta.validation.constraints.Max;
  * concreta del curso en un rango de fechas.
  */
 @Entity
-public class Curso {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Curso extends BaseEntity {
 
 	private String titulo;
 
@@ -45,18 +38,6 @@ public class Curso {
 		this.titulo = titulo;
 		this.duracion = duracion;
 		this.descripcion = descripcion;
-	}
-
-	/**
-	 * @return el identificador del curso, o {@code null} si aún no se ha
-	 *         persistido
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**

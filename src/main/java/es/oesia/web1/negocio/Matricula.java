@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
@@ -17,11 +14,7 @@ import jakarta.validation.constraints.NotNull;
  * muchas matrículas y una impartición puede tener muchas matrículas.
  */
 @Entity
-public class Matricula {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Matricula extends BaseEntity {
 
 	@NotNull(message = "La fecha de matriculación es obligatoria")
 	private LocalDate fecha;
@@ -46,18 +39,6 @@ public class Matricula {
 		this.fecha = fecha;
 		this.alumno = alumno;
 		this.imparticion = imparticion;
-	}
-
-	/**
-	 * @return el identificador de la matrícula, o {@code null} si aún no se
-	 *         ha persistido
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**

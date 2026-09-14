@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
@@ -15,11 +12,7 @@ import jakarta.validation.constraints.NotBlank;
  * de las cuales lo vincula a una {@link Imparticion} concreta.
  */
 @Entity
-public class Alumno {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Alumno extends BaseEntity {
 
 	@NotBlank(message = "El DNI es obligatorio")
 	private String dni;
@@ -45,18 +38,6 @@ public class Alumno {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-	}
-
-	/**
-	 * @return el identificador del alumno, o {@code null} si aún no se ha
-	 *         persistido
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**

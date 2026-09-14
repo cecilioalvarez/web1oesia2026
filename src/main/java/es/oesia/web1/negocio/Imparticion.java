@@ -6,9 +6,6 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -20,11 +17,7 @@ import jakarta.validation.constraints.NotNull;
  * por cada alumno matriculado en ella.
  */
 @Entity
-public class Imparticion {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Imparticion extends BaseEntity {
 
 	@NotNull(message = "La fecha de inicio es obligatoria")
 	private LocalDate fechaInicio;
@@ -51,18 +44,6 @@ public class Imparticion {
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.curso = curso;
-	}
-
-	/**
-	 * @return el identificador de la impartición, o {@code null} si aún no se
-	 *         ha persistido
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**

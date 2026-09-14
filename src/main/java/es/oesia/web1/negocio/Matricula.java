@@ -37,12 +37,21 @@ public class Matricula {
 	public Matricula() {
 	}
 
+	/**
+	 * @param fecha       fecha de matriculación
+	 * @param alumno      alumno matriculado
+	 * @param imparticion impartición en la que se matricula
+	 */
 	public Matricula(LocalDate fecha, Alumno alumno, Imparticion imparticion) {
 		this.fecha = fecha;
 		this.alumno = alumno;
 		this.imparticion = imparticion;
 	}
 
+	/**
+	 * @return el identificador de la matrícula, o {@code null} si aún no se
+	 *         ha persistido
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -51,6 +60,9 @@ public class Matricula {
 		this.id = id;
 	}
 
+	/**
+	 * @return la fecha de matriculación
+	 */
 	public LocalDate getFecha() {
 		return fecha;
 	}
@@ -59,6 +71,9 @@ public class Matricula {
 		this.fecha = fecha;
 	}
 
+	/**
+	 * @return el alumno matriculado
+	 */
 	public Alumno getAlumno() {
 		return alumno;
 	}
@@ -67,6 +82,9 @@ public class Matricula {
 		this.alumno = alumno;
 	}
 
+	/**
+	 * @return la impartición en la que está matriculado el alumno
+	 */
 	public Imparticion getImparticion() {
 		return imparticion;
 	}

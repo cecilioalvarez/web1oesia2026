@@ -14,6 +14,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Edición concreta de un {@link Curso}, delimitada por una fecha de inicio y
+ * una fecha de fin. Una impartición puede tener muchas {@link Matricula}, una
+ * por cada alumno matriculado en ella.
+ */
 @Entity
 public class Imparticion {
 
@@ -37,12 +42,21 @@ public class Imparticion {
 	public Imparticion() {
 	}
 
+	/**
+	 * @param fechaInicio fecha de inicio de la impartición
+	 * @param fechaFin    fecha de fin de la impartición
+	 * @param curso       curso del que es una edición
+	 */
 	public Imparticion(LocalDate fechaInicio, LocalDate fechaFin, Curso curso) {
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.curso = curso;
 	}
 
+	/**
+	 * @return el identificador de la impartición, o {@code null} si aún no se
+	 *         ha persistido
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -51,6 +65,9 @@ public class Imparticion {
 		this.id = id;
 	}
 
+	/**
+	 * @return la fecha de inicio de la impartición
+	 */
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -59,6 +76,9 @@ public class Imparticion {
 		this.fechaInicio = fechaInicio;
 	}
 
+	/**
+	 * @return la fecha de fin de la impartición
+	 */
 	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
@@ -67,6 +87,9 @@ public class Imparticion {
 		this.fechaFin = fechaFin;
 	}
 
+	/**
+	 * @return el curso del que esta impartición es una edición
+	 */
 	public Curso getCurso() {
 		return curso;
 	}
@@ -75,6 +98,9 @@ public class Imparticion {
 		this.curso = curso;
 	}
 
+	/**
+	 * @return las matrículas de esta impartición
+	 */
 	public List<Matricula> getMatriculas() {
 		return matriculas;
 	}
@@ -83,11 +109,24 @@ public class Imparticion {
 		this.matriculas = matriculas;
 	}
 
+	/**
+	 * Añade la matrícula a esta impartición y sincroniza el lado inverso de la
+	 * relación, dejando la impartición de la matrícula apuntando a
+	 * {@code this}.
+	 *
+	 * @param matricula matrícula a añadir
+	 */
 	public void addMatricula(Matricula matricula) {
 		matriculas.add(matricula);
 		matricula.setImparticion(this);
 	}
 
+	/**
+	 * Quita la matrícula de esta impartición y sincroniza el lado inverso de
+	 * la relación, dejando la matrícula sin impartición asociada.
+	 *
+	 * @param matricula matrícula a quitar
+	 */
 	public void removeMatricula(Matricula matricula) {
 		matriculas.remove(matricula);
 		matricula.setImparticion(null);

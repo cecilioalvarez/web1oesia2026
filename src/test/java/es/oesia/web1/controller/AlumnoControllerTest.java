@@ -60,13 +60,18 @@ class AlumnoControllerTest {
 	}
 
 	@Test
-	void insertarAlumnoConDatosValidosGuardaYRedirigeAlListado() throws Exception {
+	void insertarAlumnoConDatosValidosMuestraLaVistaDeConfirmacionConElAlumnoGuardado() throws Exception {
+		Alumno alumnoGuardado = new Alumno("12345678A", "Juan", "Pérez García");
+		alumnoGuardado.setId(1L);
+		when(alumnoServicio.guardarAlumno(any(Alumno.class))).thenReturn(alumnoGuardado);
+
 		mockMvc.perform(post("/alumnos")
 				.param("dni", "12345678A")
 				.param("nombre", "Juan")
 				.param("apellidos", "Pérez García"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/alumnos"));
+				.andExpect(status().isOk())
+				.andExpect(view().name("alumnoguardado"))
+				.andExpect(model().attribute("alumno", alumnoGuardado));
 
 		verify(alumnoServicio, times(1)).guardarAlumno(any(Alumno.class));
 	}

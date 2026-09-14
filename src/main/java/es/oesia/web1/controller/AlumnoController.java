@@ -34,12 +34,14 @@ public class AlumnoController {
 	}
 
 	@PostMapping("/alumnos")
-	public String insertarAlumno(@Valid @ModelAttribute("alumno") Alumno alumno, BindingResult bindingResult) {
+	public String insertarAlumno(@Valid @ModelAttribute("alumno") Alumno alumno, BindingResult bindingResult,
+			Model model) {
 		if (bindingResult.hasErrors()) {
 			return "nuevoalumno";
 		}
-		alumnoServicio.guardarAlumno(alumno);
-		return "redirect:/alumnos";
+		Alumno alumnoGuardado = alumnoServicio.guardarAlumno(alumno);
+		model.addAttribute("alumno", alumnoGuardado);
+		return "alumnoguardado";
 	}
 
 	@GetMapping("/alumnos/{id}/editar")

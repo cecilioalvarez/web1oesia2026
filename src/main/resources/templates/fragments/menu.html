@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<nav th:fragment="menu" class="navbar navbar-expand navbar-light bg-light border-bottom mb-4" data-test="menu-principal">
+		<div class="container">
+			<span class="navbar-brand mb-0 h1">Web1</span>
+			<ul class="nav nav-tabs border-0">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/alumnos}" data-test="menu-alumnos"
+						th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.startsWith('/alumnos')} ? 'active fw-bold' : ''">Alumnos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/cursos}" data-test="menu-cursos"
+						th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.startsWith('/cursos')} ? 'active fw-bold' : ''">Cursos</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>

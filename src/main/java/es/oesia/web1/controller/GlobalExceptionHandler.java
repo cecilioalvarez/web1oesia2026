@@ -10,12 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(ObjectOptimisticLockingFailureException.class)
-	public String manejarConflictoDeConcurrencia(RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("error",
-				"El curso ha sido modificado o eliminado por otra persona mientras completabas la operación. Comprueba el listado e inténtalo de nuevo.");
-		return "redirect:/cursos";
-	}
+
 
 	@ExceptionHandler(NoSuchElementException.class)
 	public String manejarCursoNoEncontrado(RedirectAttributes redirectAttributes) {

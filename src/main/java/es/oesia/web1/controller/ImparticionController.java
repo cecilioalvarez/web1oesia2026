@@ -30,15 +30,25 @@ public class ImparticionController {
 		return "nuevaimparticion";
 	}
 
-	@PostMapping("/cursos/{id}/imparticiones")
-	public String insertarImparticion(@PathVariable Long id,
+	@GetMapping("/cursos/{cursoId}/imparticiones")
+	public String listarImparticiones(@PathVariable Long cursoId, Model model) {
+		Curso curso = cursosServicio.obtenerCurso(cursoId);
+		model.addAttribute("curso", curso);
+		model.addAttribute("imparticiones", curso.getImparticiones());
+		return "listaimparticiones";
+	}
+
+	@PostMapping("/cursos/{cursoId}/imparticiones")
+	public String insertarImparticion(@PathVariable Long cursoId,
 			@Valid @ModelAttribute("imparticion") Imparticion imparticion, BindingResult bindingResult,
 			Model model) {
+		System.out.println("CONTROLLER entrada id=" + imparticion.getId() + " hash=" + System.identityHashCode(imparticion)
+				+ " errores=" + bindingResult.getAllErrors());
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("curso", cursosServicio.obtenerCurso(id));
+			model.addAttribute("curso", cursosServicio.obtenerCurso(cursoId));
 			return "nuevaimparticion";
 		}
-		cursosServicio.añadirImparticion(id, imparticion);
+		cursosServicio.añadirImparticion(cursoId, imparticion);
 		return "redirect:/cursos";
 	}
 

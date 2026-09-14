@@ -25,7 +25,7 @@ public class Curso {
 
 	private String descripcion;
 
-	@OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "curso", orphanRemoval = true)
 	private List<Imparticion> imparticiones = new ArrayList<>();
 
 	public Curso() {

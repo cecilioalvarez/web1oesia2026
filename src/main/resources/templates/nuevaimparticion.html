@@ -13,17 +13,17 @@
 			onsubmit="this.querySelector('button[type=submit]').disabled = true;">
 			<div class="mb-3">
 				<label class="form-label">Fecha de inicio</label>
-				<input type="date" class="form-control" th:field="*{fechaInicio}"
+				<input type="date" class="form-control" th:field="*{fechaInicio}" data-test="fecha-inicio"
 					th:classappend="${#fields.hasErrors('fechaInicio')} ? ' is-invalid'" />
 				<div class="invalid-feedback" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></div>
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Fecha de fin</label>
-				<input type="date" class="form-control" th:field="*{fechaFin}"
+				<input type="date" class="form-control" th:field="*{fechaFin}" data-test="fecha-fin"
 					th:classappend="${#fields.hasErrors('fechaFin')} ? ' is-invalid'" />
 				<div class="invalid-feedback" th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></div>
 			</div>
-			<button type="submit" class="btn btn-primary">Guardar</button>
+			<button type="submit" class="btn btn-primary" data-test="guardar">Guardar</button>
 			<a class="btn btn-secondary" th:href="@{/cursos}">Volver al listado</a>
 		</form>
 	</div>

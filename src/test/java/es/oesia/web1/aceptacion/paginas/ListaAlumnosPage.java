@@ -17,12 +17,25 @@ public class ListaAlumnosPage extends PaginaBase {
 		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.titleIs("Listado de alumnos"));
 	}
 
+	public static ListaAlumnosPage visitar(WebDriver driver, String urlBase) {
+		driver.get(urlBase + "/alumnos");
+		return new ListaAlumnosPage(driver);
+	}
+
 	public String urlActual() {
 		return driver.getCurrentUrl();
 	}
 
 	public boolean contieneTexto(String texto) {
 		return driver.findElement(By.tagName("body")).getText().contains(texto);
+	}
+
+	/**
+	 * Pulsa "Matricular" en la fila del alumno con el DNI indicado.
+	 */
+	public NuevaMatriculaPage matricular(String dni) {
+		fila(dni).findElement(By.cssSelector("[data-test=matricular]")).click();
+		return new NuevaMatriculaPage(driver);
 	}
 
 }

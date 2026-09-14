@@ -42,7 +42,7 @@
 					<td th:text="${curso.descripcion}"></td>
 					<td class="d-flex gap-2">
 						<a class="btn btn-info btn-sm" th:href="@{/cursos/{id}/imparticiones(id=${curso.id})}">Ver imparticiones</a>
-						<a class="btn btn-success btn-sm" th:href="@{/cursos/{id}/imparticiones/nueva(id=${curso.id})}">Añadir impartición</a>
+						<a class="btn btn-success btn-sm" data-test="anadir-imparticion" th:href="@{/cursos/{id}/imparticiones/nueva(id=${curso.id})}">Añadir impartición</a>
 						<form th:action="@{/cursos/{id}/eliminar(id=${curso.id})}" method="post" onsubmit="return confirm('¿Seguro que desea eliminar este curso?');">
 							<button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
 						</form>

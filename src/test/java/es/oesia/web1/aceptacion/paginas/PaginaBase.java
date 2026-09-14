@@ -1,6 +1,9 @@
 package es.oesia.web1.aceptacion.paginas;
 
+import java.time.LocalDate;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -23,6 +26,27 @@ public abstract class PaginaBase {
 
 	protected WebElement elemento(String dataTest) {
 		return driver.findElement(By.cssSelector("[data-test=" + dataTest + "]"));
+	}
+
+	/**
+	 * Busca la fila de una tabla que contiene una celda con el texto exacto
+	 * indicado, para poder localizar y accionar los controles de esa fila en
+	 * concreto (por ejemplo, cuando data-test se repite en varias filas).
+	 */
+	protected WebElement fila(String texto) {
+		return driver.findElement(By.xpath("//tr[td[normalize-space(text())='" + texto + "']]"));
+	}
+
+	/**
+	 * Los inputs "date" nativos no aceptan de forma fiable sendKeys con el
+	 * texto ISO (el orden esperado depende del locale del navegador), así que
+	 * se fija el valor directamente vía JavaScript con el formato ISO que
+	 * entienden internamente.
+	 */
+	protected void escribirFecha(String dataTest, LocalDate fecha) {
+		((JavascriptExecutor) driver).executeScript("arguments[0].value = arguments[1];", elemento(dataTest),
+				fecha.toString());
+		pausaVisual();
 	}
 
 	protected void pausaVisual() {

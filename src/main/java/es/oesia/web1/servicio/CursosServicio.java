@@ -44,11 +44,6 @@ public class CursosServicio {
 	}
 
 	public void añadirImparticion(Long cursoId, Imparticion imparticion) {
-		//imparticion.setId(null);
-		System.out.println("id curso"+cursoId);
-		System.out.println("id imparticion"+imparticion.getId());
-		System.out.println(imparticion.getFechaFin());
-		System.out.println(imparticion.getFechaInicio());
 		Curso curso = cursoRepository.findById(cursoId).orElseThrow();
 		curso.addImparticion(imparticion);
 		imparticionRepository.save(imparticion);

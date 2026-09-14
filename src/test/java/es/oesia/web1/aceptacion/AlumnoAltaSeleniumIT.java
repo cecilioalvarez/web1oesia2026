@@ -26,12 +26,16 @@ import es.oesia.web1.aceptacion.paginas.PaginaBase;
  * la pantalla de confirmación y la vuelta al listado. La navegación por cada
  * pantalla se encapsula en los Page Objects del paquete "paginas".
  *
+ * Sufijo "IT" (en vez de "Test") a propósito: requiere Edge instalado, así que
+ * la ejecuta el plugin Failsafe con "mvn verify" y queda excluida de
+ * "mvn test", que debe poder ejecutarse en cualquier máquina sin navegador.
+ *
  * Por defecto el navegador se abre visible para poder observar la navegación.
  * Para ejecutarlo en modo headless (por ejemplo en un servidor de CI sin
  * pantalla) lanzar con -Dselenium.headless=true.
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class AlumnoAltaSeleniumTest {
+class AlumnoAltaSeleniumIT {
 
 	@LocalServerPort
 	private int puerto;

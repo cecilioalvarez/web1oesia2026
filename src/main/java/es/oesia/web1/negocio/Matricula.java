@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -26,6 +27,9 @@ public class Matricula extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "imparticion_id")
 	private Imparticion imparticion;
+
+	@OneToOne(mappedBy = "matricula", fetch = FetchType.LAZY)
+	private Pago pago;
 
 	public Matricula() {
 	}
@@ -72,6 +76,27 @@ public class Matricula extends BaseEntity {
 
 	public void setImparticion(Imparticion imparticion) {
 		this.imparticion = imparticion;
+	}
+
+	/**
+	 * @return el pago de esta matrícula, o {@code null} si aún no tiene uno
+	 *         asociado
+	 */
+	public Pago getPago() {
+		return pago;
+	}
+
+	/**
+	 * Asigna el pago a esta matrícula y sincroniza el lado propietario de la
+	 * relación, dejando el pago apuntando a {@code this}.
+	 *
+	 * @param pago pago a asignar, o {@code null} para desvincularlo
+	 */
+	public void setPago(Pago pago) {
+		this.pago = pago;
+		if (pago != null) {
+			pago.setMatricula(this);
+		}
 	}
 
 }

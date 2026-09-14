@@ -19,6 +19,8 @@
 					<th>Curso</th>
 					<th>Fecha de inicio</th>
 					<th>Fecha de fin</th>
+					<th>Fecha de pago</th>
+					<th>Importe pagado</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,9 +30,11 @@
 					<td th:text="${matricula.imparticion.curso.titulo}"></td>
 					<td th:text="${matricula.imparticion.fechaInicio}"></td>
 					<td th:text="${matricula.imparticion.fechaFin}"></td>
+					<td th:text="${matricula.pago != null ? matricula.pago.fecha : 'Sin pago registrado'}"></td>
+					<td th:text="${matricula.pago != null ? matricula.pago.importe : '-'}"></td>
 				</tr>
 				<tr th:if="${matriculas.isEmpty()}">
-					<td colspan="5" class="text-center">Este alumno no tiene matrículas registradas</td>
+					<td colspan="7" class="text-center">Este alumno no tiene matrículas registradas</td>
 				</tr>
 			</tbody>
 		</table>

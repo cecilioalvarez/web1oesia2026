@@ -15,6 +15,7 @@
 					<th>ID</th>
 					<th>Fecha de inicio</th>
 					<th>Fecha de fin</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,9 +23,18 @@
 					<td th:text="${imparticion.id}"></td>
 					<td th:text="${imparticion.fechaInicio}"></td>
 					<td th:text="${imparticion.fechaFin}"></td>
+					<td class="d-flex gap-2">
+						<a class="btn btn-primary btn-sm"
+							th:href="@{/cursos/{cursoId}/imparticiones/{id}/editar(cursoId=${curso.id},id=${imparticion.id})}">Editar</a>
+						<form
+							th:action="@{/cursos/{cursoId}/imparticiones/{id}/eliminar(cursoId=${curso.id},id=${imparticion.id})}"
+							method="post" onsubmit="return confirm('¿Seguro que desea eliminar esta impartición?');">
+							<button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+						</form>
+					</td>
 				</tr>
 				<tr th:if="${imparticiones.isEmpty()}">
-					<td colspan="3" class="text-center">Este curso no tiene imparticiones registradas</td>
+					<td colspan="4" class="text-center">Este curso no tiene imparticiones registradas</td>
 				</tr>
 			</tbody>
 		</table>

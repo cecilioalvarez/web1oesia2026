@@ -55,4 +55,20 @@ public class CursosServicio {
 
 	}
 
+	@Transactional(readOnly = true)
+	public Imparticion obtenerImparticion(Long id) {
+		return imparticionRepository.findById(id).orElseThrow();
+	}
+
+	public void actualizarImparticion(Long id, Imparticion datos) {
+		Imparticion imparticion = imparticionRepository.findById(id).orElseThrow();
+		imparticion.setFechaInicio(datos.getFechaInicio());
+		imparticion.setFechaFin(datos.getFechaFin());
+		imparticionRepository.save(imparticion);
+	}
+
+	public void eliminarImparticion(Long id) {
+		imparticionRepository.deleteById(id);
+	}
+
 }

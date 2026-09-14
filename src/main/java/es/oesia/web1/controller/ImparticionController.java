@@ -52,4 +52,30 @@ public class ImparticionController {
 		return "redirect:/cursos";
 	}
 
+	@GetMapping("/cursos/{cursoId}/imparticiones/{id}/editar")
+	public String formularioEditarImparticion(@PathVariable Long cursoId, @PathVariable Long id, Model model) {
+		Curso curso = cursosServicio.obtenerCurso(cursoId);
+		model.addAttribute("curso", curso);
+		model.addAttribute("imparticion", cursosServicio.obtenerImparticion(id));
+		return "editarimparticion";
+	}
+
+	@PostMapping("/cursos/{cursoId}/imparticiones/{id}/editar")
+	public String editarImparticion(@PathVariable Long cursoId, @PathVariable Long id,
+			@Valid @ModelAttribute("imparticion") Imparticion imparticion, BindingResult bindingResult,
+			Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("curso", cursosServicio.obtenerCurso(cursoId));
+			return "editarimparticion";
+		}
+		cursosServicio.actualizarImparticion(id, imparticion);
+		return "redirect:/cursos/{cursoId}/imparticiones";
+	}
+
+	@PostMapping("/cursos/{cursoId}/imparticiones/{id}/eliminar")
+	public String eliminarImparticion(@PathVariable Long cursoId, @PathVariable Long id) {
+		cursosServicio.eliminarImparticion(id);
+		return "redirect:/cursos/{cursoId}/imparticiones";
+	}
+
 }

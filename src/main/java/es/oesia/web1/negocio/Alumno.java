@@ -1,9 +1,13 @@
 package es.oesia.web1.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -21,6 +25,9 @@ public class Alumno {
 
 	@NotBlank(message = "Los apellidos son obligatorios")
 	private String apellidos;
+
+	@OneToMany(mappedBy = "alumno", orphanRemoval = true)
+	private List<Matricula> matriculas = new ArrayList<>();
 
 	public Alumno() {
 	}
@@ -61,6 +68,24 @@ public class Alumno {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
+	}
+
+	public List<Matricula> getMatriculas() {
+		return matriculas;
+	}
+
+	public void setMatriculas(List<Matricula> matriculas) {
+		this.matriculas = matriculas;
+	}
+
+	public void addMatricula(Matricula matricula) {
+		matriculas.add(matricula);
+		matricula.setAlumno(this);
+	}
+
+	public void removeMatricula(Matricula matricula) {
+		matriculas.remove(matricula);
+		matricula.setAlumno(null);
 	}
 
 }

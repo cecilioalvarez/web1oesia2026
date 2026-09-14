@@ -1,0 +1,41 @@
+classDiagram
+    class Curso {
+        <<entity>>
+        -Long id
+        -String titulo
+        -int duracion
+        -String descripcion
+        +addImparticion(Imparticion)
+        +removeImparticion(Imparticion)
+    }
+
+    class Imparticion {
+        <<entity>>
+        -Long id
+        -LocalDate fechaInicio
+        -LocalDate fechaFin
+        +addMatricula(Matricula)
+        +removeMatricula(Matricula)
+    }
+
+    class Alumno {
+        <<entity>>
+        -Long id
+        -String dni
+        -String nombre
+        -String apellidos
+        +addMatricula(Matricula)
+        +removeMatricula(Matricula)
+    }
+
+    class Matricula {
+        <<association>>
+        -Long id
+        -LocalDate fecha
+    }
+
+    Curso "1" --> "*" Imparticion : imparticiones
+    Alumno "1" --> "*" Matricula : matriculas
+    Imparticion "1" --> "*" Matricula : matriculas
+    Matricula --> "1" Alumno : alumno
+    Matricula --> "1" Imparticion : imparticion

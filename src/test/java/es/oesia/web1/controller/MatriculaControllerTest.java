@@ -87,12 +87,18 @@ class MatriculaControllerTest {
 	}
 
 	@Test
-	void insertarMatriculaConFechaEImparticionMatriculaYRedirigeAlListadoDeAlumnos() throws Exception {
+	void insertarMatriculaConFechaEImparticionMatriculaYRedirigeAlFormularioDeNuevoPago() throws Exception {
+		Alumno alumno = alumno();
+		Imparticion imparticion = imparticion(LocalDate.of(2026, 1, 12), LocalDate.of(2026, 2, 12));
+		Matricula matricula = new Matricula(LocalDate.of(2026, 1, 15), alumno, imparticion);
+		matricula.setId(3L);
+		when(matriculaServicio.matricular(1L, 2L, LocalDate.of(2026, 1, 15))).thenReturn(matricula);
+
 		mockMvc.perform(post("/alumnos/1/matriculas")
 				.param("fecha", "2026-01-15")
 				.param("imparticionId", "2"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/alumnos"));
+				.andExpect(redirectedUrl("/matriculas/3/pago/nuevo"));
 
 		verify(matriculaServicio, times(1)).matricular(eq(1L), eq(2L), eq(LocalDate.of(2026, 1, 15)));
 	}

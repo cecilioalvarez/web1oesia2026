@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.oesia.web1.negocio.Matricula;
 import es.oesia.web1.servicio.MatriculaServicio;
 
 @Controller
@@ -47,8 +48,8 @@ public class MatriculaController {
 			model.addAttribute("imparticionId", imparticionId);
 			return "nuevamatricula";
 		}
-		matriculaServicio.matricular(alumnoId, imparticionId, fecha);
-		return "redirect:/alumnos";
+		Matricula matricula = matriculaServicio.matricular(alumnoId, imparticionId, fecha);
+		return "redirect:/matriculas/" + matricula.getId() + "/pago/nuevo";
 	}
 
 }

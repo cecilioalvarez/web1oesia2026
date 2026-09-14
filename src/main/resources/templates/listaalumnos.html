@@ -28,6 +28,8 @@
 					<td th:text="${alumno.nombre}"></td>
 					<td th:text="${alumno.apellidos}"></td>
 					<td class="d-flex gap-2">
+						<a class="btn btn-info btn-sm" th:href="@{/alumnos/{id}/matriculas(id=${alumno.id})}">Ver matrículas</a>
+						<a class="btn btn-success btn-sm" th:href="@{/alumnos/{id}/matriculas/nueva(id=${alumno.id})}">Matricular</a>
 						<a class="btn btn-primary btn-sm" th:href="@{/alumnos/{id}/editar(id=${alumno.id})}">Editar</a>
 						<form th:action="@{/alumnos/{id}/eliminar(id=${alumno.id})}" method="post"
 							onsubmit="return confirm('¿Seguro que desea eliminar este alumno?');">

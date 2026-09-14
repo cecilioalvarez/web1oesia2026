@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Nueva matrícula</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container py-4">
+		<h1 class="mb-4">Nueva matrícula de <span th:text="${alumno.nombre} + ' ' + ${alumno.apellidos}"></span>
+			(ID alumno: <span th:text="${alumno.id}"></span>)</h1>
+
+		<div class="alert alert-warning" th:if="${error}" th:text="${error}"></div>
+
+		<form th:action="@{/alumnos/{alumnoId}/matriculas(alumnoId=${alumno.id})}" method="post"
+			onsubmit="this.querySelector('button[type=submit]').disabled = true;">
+			<div class="mb-3">
+				<label class="form-label">Fecha de matriculación</label>
+				<input type="date" class="form-control" name="fecha" th:value="${fecha}" required data-test="fecha" />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Impartición</label>
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Curso</th>
+							<th>Fecha de inicio</th>
+							<th>Fecha de fin</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="imparticion : ${imparticionesDisponibles}">
+							<td>
+								<input type="radio" name="imparticionId" th:value="${imparticion.id}"
+									th:checked="${imparticion.id == imparticionId}" required data-test="imparticion" />
+							</td>
+							<td th:text="${imparticion.curso.titulo}"></td>
+							<td th:text="${imparticion.fechaInicio}"></td>
+							<td th:text="${imparticion.fechaFin}"></td>
+						</tr>
+						<tr th:if="${imparticionesDisponibles.isEmpty()}">
+							<td colspan="4" class="text-center">No hay imparticiones disponibles para matricular a
+								este alumno</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<button type="submit" class="btn btn-primary" data-test="guardar">Guardar</button>
+			<a class="btn btn-secondary" th:href="@{/alumnos}">Volver al listado</a>
+		</form>
+	</div>
+</body>
+</html>
